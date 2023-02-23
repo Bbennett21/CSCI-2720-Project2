@@ -15,8 +15,12 @@ public class PostfixConversion {
                 } // if
             } else if (Character.isDigit(c)) {
                 // Makes sure a digit is followed by an operator or closing bracket
-                if (i < infixExpression.length() - 1) {
-                    char next = infixExpression.charAt(i + 1);
+                int j = i + 1;
+                while (j < infixExpression.length() && Character.isWhitespace(infixExpression.charAt(j))) {
+                    j++; // skip whitespace
+                } // while
+                if (j < infixExpression.length() - 1) {
+                    char next = infixExpression.charAt(j + 1);
                     if (Character.isDigit(next)) {
                         return false;
                     } // if
@@ -26,13 +30,22 @@ public class PostfixConversion {
                 if (i == 0 || i == infixExpression.length() - 1) {
                     return false;
                 } // if
-                char prev = infixExpression.charAt(i - 1);
-                char next = infixExpression.charAt(i + 1);
-                if (Character.isDigit(prev) && Character.isDigit(next)) {
-                    continue;
-                } else {
+                int j = i - 1;
+                while (j >= 0 && Character.isWhitespace(infixExpression.charAt(j))) {
+                    j--; // skip whitespace
+                } // while
+                if (j < 0 || !Character.isDigit(infixExpression.charAt(j))) {
                     return false;
                 } // if
+                j = i + 1;
+                while (j < infixExpression.length() && Character.isWhitespace(infixExpression.charAt(j))) {
+                    j++; // skip whitespace
+                } // while
+                if (j >= infixExpression.length() || !Character.isDigit(infixExpression.charAt(j))) {
+                    return false;
+                } // if
+            } else if (c == ' ') {
+                continue;
             } else {
                 return false; // Invalid character found
             } // if
@@ -49,11 +62,13 @@ public class PostfixConversion {
             } // if
             if (Character.isLetterOrDigit(c)) {
                 postfix += c;
+                postfix += " ";
             } else if (c == '(') {
                 stack.push(c);
             } else if (c == ')') {
                 while (!stack.isEmpty() && stack.peek() != '(') {
                     postfix += stack.pop();
+                    postfix += " ";
                 } // while
                 if (stack.isEmpty()) {
                     throw new IllegalArgumentException("Unbalanced parentheses.");
@@ -62,6 +77,7 @@ public class PostfixConversion {
             } else {
                 while (!stack.isEmpty() && getPrecedence(c) <= getPrecedence(stack.peek())) {
                     postfix += stack.pop();
+                    postfix += " ";
                 } // while
                 stack.push(c);
             } // if
@@ -71,6 +87,7 @@ public class PostfixConversion {
                 throw new IllegalArgumentException("Unbalanced parentheses.");
             } // if
             postfix += stack.pop();
+            postfix += " ";
         } // while
         return postfix;
     } // convertToPostfix
