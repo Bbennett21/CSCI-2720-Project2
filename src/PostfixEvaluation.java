@@ -6,7 +6,7 @@ public class PostfixEvaluation {
         // check if the expression is null or empty
         if (expression == null || expression.isEmpty()) {
             return false;
-        }
+        } // if
 
         // split the expression into tokens
         String[] tokens = expression.split("\\s+");
@@ -14,14 +14,14 @@ public class PostfixEvaluation {
         // check if the expression has at least 2 tokens
         if (tokens.length < 2) {
             return false;
-        }
+        } // if
 
         // check if all tokens are valid operands or operators
         for (String token : tokens) {
             if (!isOperand(token) && !isOperator(token)) {
                 return false;
-            }
-        }
+            } // if
+        } // for
 
         // check if the expression has a valid number of operands and operators
         int numOperands = 0;
@@ -32,16 +32,16 @@ public class PostfixEvaluation {
                 numOperands++;
             } else if (isOperator(token)) {
                 numOperators++;
-            }
-        }
+            } // if
+        } // for
 
         if (numOperands - numOperators != 1) {
             return false;
-        }
+        } // if
 
         // the expression is valid
         return true;
-    }
+    } // isValidPostfixExpression
 
     private static boolean isOperand(String token) {
         try {
@@ -49,18 +49,18 @@ public class PostfixEvaluation {
             return true;
         } catch (NumberFormatException e) {
             return false;
-        }
-    }
+        } // try
+    } // isOperand
 
     private static boolean isOperator(String token) {
         return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
-    }
+    } // isOperator
 
     public static double evaluatePostfixExpression(String expression) {
         // check if the expression is valid
         if (!isValidPostfixExpression(expression)) {
             throw new IllegalArgumentException("Invalid expression");
-        }
+        } // if
 
         // split the expression into tokens
         String[] tokens = expression.split("\\s+");
@@ -88,11 +88,11 @@ public class PostfixEvaluation {
                     case "/":
                         stack.push(operand1 / operand2);
                         break;
-                }
-            }
-        }
+                } // switch
+            } // if
+        } // for
 
         // the final result is at the top of the stack
         return stack.pop();
-    }
-}
+    } // evaluatePostfixExpression
+} // PostfixEvaluation

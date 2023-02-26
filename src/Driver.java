@@ -25,7 +25,7 @@ public class Driver {
                         System.out.println(postfixExpression);
                     } else {
                         System.out.println("Invalid infix expression");
-                    }
+                    } // if
 
                     break;
 
@@ -39,7 +39,7 @@ public class Driver {
                         System.out.println(result);
                     } else {
                         System.out.println("Invalid postfix expression");
-                    }
+                    } // if
 
                     break;
 
@@ -50,7 +50,7 @@ public class Driver {
                 default:
                     System.out.println("Invalid option");
                     break;
-            }
-        }
-    }
-}
+            } // switch
+        } // while
+    } // main
+} // Driver
