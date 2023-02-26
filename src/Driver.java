@@ -34,7 +34,7 @@ public class Driver {
                     String postfixExpression = scanner.nextLine();
 
                     if (PostfixEvaluation.isValidPostfixExpression(postfixExpression)) {
-                        int result = PostfixEvaluation.evaluatePostfixExpression(postfixExpression);
+                        double result = PostfixEvaluation.evaluatePostfixExpression(postfixExpression);
                         System.out.println("The result of the postfix expression is:");
                         System.out.println(result);
                     } else {
