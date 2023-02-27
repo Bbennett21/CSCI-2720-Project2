@@ -2,6 +2,10 @@ import java.util.*;
 
 public class PostfixEvaluation {
 
+    /**
+     * Checks if a postfix expression is valid.
+     * @param expression is a potential postfix expression.
+     */
     public static boolean isValidPostfixExpression(String expression) {
         // check if the expression is null or empty
         if (expression == null || expression.isEmpty()) {
@@ -43,6 +47,10 @@ public class PostfixEvaluation {
         return true;
     } // isValidPostfixExpression
 
+    /**
+     * Checks if a string is an operand.
+     * @param token is a potential operand.
+     */
     private static boolean isOperand(String token) {
         try {
             Double.parseDouble(token);
@@ -52,10 +60,18 @@ public class PostfixEvaluation {
         } // try
     } // isOperand
 
+   /**
+    * Checks if a string is an operator.
+    * @param token is a potential operator.
+     */
     private static boolean isOperator(String token) {
         return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
     } // isOperator
 
+    /**
+     * Evaluates a valid postfix expression.
+     * @param expression is a postfix expression.
+     */
     public static double evaluatePostfixExpression(String expression) {
         // check if the expression is valid
         if (!isValidPostfixExpression(expression)) {

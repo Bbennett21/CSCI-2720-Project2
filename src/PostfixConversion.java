@@ -1,18 +1,21 @@
 public class PostfixConversion {
 
+    /**
+     * Check is an infix expression is a valid expression.
+     * @param infixExpresion is an input string of input expression.
+     */
     public static boolean isValidInfixExpression(String infixExpression) {
         LinkedListStack stack = new LinkedListStack();
         boolean prevWasDigit = false;
 
-        for (int i = 0; i < infixExpression.length(); i++) {
+        for (int i = 0; i < infixExpression.length(); i++) { // loops through expression
             char c = infixExpression.charAt(i);
-
-            if (c == ' ') {
+            if (c == ' ') { // ignores whitespace
                 continue;
-            } else if (c == '(') {
+            } else if (c == '(') { // checks open parethesis
                 stack.push(c);
                 prevWasDigit = false;
-            } else if (c == ')') {
+            } else if (c == ')') { // checks close parenthesis
                 if (stack.isEmpty()) {
                     return false;
                 } // if
@@ -21,7 +24,7 @@ public class PostfixConversion {
                     return false;
                 } // if
                 prevWasDigit = false;
-            } else if (Character.isDigit(c)) {
+            } else if (Character.isDigit(c)) { // checks if char is digit
                 if (prevWasDigit) {
                     continue;
                 } // if
@@ -35,7 +38,7 @@ public class PostfixConversion {
                 } else {
                     prevWasDigit = false;
                 } // if
-            } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+            } else if (c == '+' || c == '-' || c == '*' || c == '/') { // checks if char is operator
                 if (i == 0 || i == infixExpression.length() - 1) {
                     return false;
                 } // if
@@ -61,8 +64,10 @@ public class PostfixConversion {
         return stack.isEmpty();
     } // isValidInfixExpression
 
-
-
+    /**
+     * Converts infix expression to postfix expression.
+     * @param infix is a valid infix expression.
+     */
     public static String convertToPostfix(String infix) throws IllegalArgumentException {
         LinkedListStack<Character> stack = new LinkedListStack<>();
         String postfix = "";
@@ -98,6 +103,7 @@ public class PostfixConversion {
                     number = "";
                 } // if
                 while (!stack.isEmpty() && getPrecedence(c) <= getPrecedence(stack.peek())) {
+                    // checks for lower precedence
                     postfix += stack.pop();
                     postfix += " ";
                 } // while
@@ -108,7 +114,7 @@ public class PostfixConversion {
             postfix += number;
             postfix += " ";
         } // if
-        while (!stack.isEmpty()) {
+        while (!stack.isEmpty()) { // makes sure no parethesis are in the expression
             if (stack.peek() == '(' || stack.peek() == ')') {
                 throw new IllegalArgumentException("Unbalanced parentheses.");
             } // if
@@ -118,6 +124,10 @@ public class PostfixConversion {
         return postfix.trim();
     } // convertToPostfix
 
+    /**
+     *Returns the precdence of an operator.
+     * @param c is an operator.
+     */
     private static int getPrecedence(char c) {
         if (c == '+' || c == '-') {
             return 1;

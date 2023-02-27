@@ -14,6 +14,7 @@ public class Driver {
             int option = scanner.nextInt();
             scanner.nextLine();
 
+            // convert infix
             switch (option) {
                 case 1:
                     System.out.println("Please enter an infix expression:");
@@ -28,7 +29,7 @@ public class Driver {
                     } // if
 
                     break;
-
+                    // postfixEvaluation
                 case 2:
                     System.out.println("Please enter a postfix expression:");
                     String postfixExpression = scanner.nextLine();
@@ -43,6 +44,7 @@ public class Driver {
 
                     break;
 
+                    //quit
                 case 3:
                     quit = true;
                     break;
